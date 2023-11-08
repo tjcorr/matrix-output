@@ -24,14 +24,12 @@ jobs:
       matrix:
         file: ${{ fromJson(needs.list-files.outputs.bicep-files) }}
     runs-on: ubuntu-latest
-    outputs: 
-      file-path: ${{ steps.test.outputs.file-path }}
     steps:
       - name: test
         id: test
         run: |
           echo running on ${{ matrix.file }} 
-          echo "file-path=${{ matrix.file }}" >> "$GITHUB_OUTPUT"
+          echo "file-path.${{ matrix.file }}=${{ matrix.file }}" >> "$GITHUB_OUTPUT"
 
   matrix_output:
     needs: [test_matrix]
@@ -39,4 +37,6 @@ jobs:
     steps:
       - name: test
         run: |
-          echo output was ${{ needs.test_matrix.outputs.file-path }} 
+          echo output was ${{ needs.test_matrix.outputs.file-path.file1 }} 
+          echo output was ${{ needs.test_matrix.outputs.file-path.file2 }} 
+          echo output was ${{ needs.test_matrix.outputs.file-path.file3 }} 
