@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: test
         run: |
-          echo output was ${{ needs.test_matrix.outputs }} 
+          echo output was ${{ toJson(needs.test_matrix.outputs) }} 
           echo output was ${{ needs.test_matrix.outputs.file-path.file1 }} 
           echo output was ${{ needs.test_matrix.outputs.file-path.file2 }} 
           echo output was ${{ needs.test_matrix.outputs.file-path.file3 }} 
